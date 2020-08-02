@@ -3,7 +3,7 @@ const booksModel = require('./model')
 //Controllers
 fetchBooksController = (req, res) => {
     const { id } = req.params
-    id == '' ? 
+    !id ? 
     booksModel.find().then((books)=>{
         res.json({books})
     }).catch((err)=>console.log(err)) :
@@ -15,18 +15,21 @@ fetchBooksController = (req, res) => {
 updateBooksController = (req, res) => {
     const {id, title, author, genre, publisher, numbPages} = req.body
     booksModel.findById(id).then((book)=>{
-        book.title=title,
-        book.author=author,
-        book.genre=genre,
-        book.publisher=publisher,
-        book.numbPages=numbPages
+        if(book){
+            book.title=title
+            book.author=author
+            book.genre=genre
+            book.publisher=publisher
+            book.numbPages=numbPages
 
-        book.save().then((book)=>{
-            res.json({message:'Updated Successfully', updatedBook})
-        })
-        .catch((err)=>{
-            console.log(err)
-        })
+            book.save()
+            .then((book)=>{
+                res.json({message:'Updated Successfully', book})
+            })
+            .catch((err)=>{
+                console.log(err)
+            })
+        }
     })
     .catch((err)=>{
         console.log(err)
@@ -47,8 +50,13 @@ createBooksController = (req, res) => {
 
 deleteBooksController = (req, res) => {
     const {id} = req.body
-    const deletedBook = booksModel.findByIdAndDelete(id)
-    res.json({message:'Deleted Succesfully', deletedBook})
+    booksModel.findByIdAndDelete(id)
+    .then((deletedBook)=>{
+        res.json({message:'Deleted Succesfully', deletedBook})
+    })
+    .catch((err)=>{
+        console.log(err)
+    })
 }
 
 // registerController = (req, res) => {
