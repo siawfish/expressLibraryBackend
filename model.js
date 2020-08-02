@@ -1,5 +1,4 @@
-const booksModel = require('./model')
-const database = require('./database')
+let database = require('./database')
 
 //Model
 class booksModel {
@@ -48,4 +47,4 @@ class booksModel {
 }
 
 
-module.export = booksModel
+module.exports = booksModel

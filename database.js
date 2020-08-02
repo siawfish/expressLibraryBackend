@@ -2,4 +2,4 @@
 //Database
 let database = []
 
-module.export = database
+module.exports = database
