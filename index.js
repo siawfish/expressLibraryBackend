@@ -6,7 +6,7 @@ const bodyParser = require('body-parser')
 const server = express()
 
 //Middlewares
-server.use(bodyParser.json())
+server.use(bodyParser.urlencoded({extended:false}))
 
 //Database
 let database = []
@@ -82,12 +82,18 @@ deleteBooksController = (req, res) => {
     res.json({message:'Deleted Succesfully', deletedBook})
 }
 
+registerController = (req, res) => {
+    console.log(req.body)
+    res.send("DONE")
+}
+
 //Routes
-// server.use(express.static(path.join(__dirname, 'public')))
+server.use(express.static(path.join(__dirname, 'public')))
 server.get('/', fetchBooksController)
 server.put('/edit', updateBooksController)
 server.delete('/delete', deleteBooksController)
 server.post('/create', createBooksController)
+server.post('/register', registerController)
 
 
 server.listen(3000, '127.0.0.1', ()=>console.log('Server is ready'))
