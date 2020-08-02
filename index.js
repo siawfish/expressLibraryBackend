@@ -17,7 +17,7 @@ server.use(bodyParser.json())
 
 //Routes
 // server.use(express.static(path.join(__dirname, 'public')))
-server.get('/', fetchBooksController)
+server.get('/:id?', fetchBooksController)
 server.put('/edit', updateBooksController)
 server.delete('/delete', deleteBooksController)
 server.post('/create', createBooksController)
