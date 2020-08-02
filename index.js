@@ -7,6 +7,7 @@ const {
     createBooksController, 
     deleteBooksController 
 } = require('./controllers')
+const mongoose = require('mongoose')
 
 //Create express server
 const server = express()
@@ -22,5 +23,6 @@ server.delete('/delete', deleteBooksController)
 server.post('/create', createBooksController)
 // server.post('/register', registerController)
 
-server.listen(3000, '127.0.0.1', ()=>console.log('Server is ready'))
+mongoose.connect('mongodb+srv://me:Rolodex@cluster0.z5tx2.mongodb.net/Codetrain?retryWrites=true&w=majority') ?
+server.listen(3000, '127.0.0.1', ()=>console.log('Server is ready')) : console.log("Database connection failed")
 

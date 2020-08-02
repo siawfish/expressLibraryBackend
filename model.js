@@ -1,50 +1,17 @@
-let database = require('./database')
+var mongoose = require('mongoose')
 
-//Model
-class booksModel {
-    constructor({id, title, author, genre, publisher, numbPages}){
-        this.id = id
-        this.title = title
-        this.author = author
-        this.genre = genre
-        this.publisher = publisher
-        this.numbPages = numbPages
-    }
+var Schema = mongoose.Schema
 
-    create() {
-        database.push(this)
-        return this
-    }
 
-    static update(updateInfo={}){
-        database = database.map((book=>{
-            if(book.id == updateInfo.id){
-                return {
-                    ...book,
-                    ...updateInfo
-                }
-            }
-            return database
-        }))
-        return database
-    }
+var booksSchema = new Schema({
+    title:  String, // String is shorthand for {type: String}
+    author: String,
+    genre:   String,
+    publisher: String,
+    numbPages: String
+})
 
-    static fetch() {
-        return database
-    }
-
-    static delete(id) {
-        let deletedBook = null
-         database = database.filter((book)=>{
-            if(book.id!==id){
-                return true
-            }
-            deletedBook = book
-            return false
-        })
-        return deletedBook
-    }
-}
+const booksModel = mongoose.model('Books', booksSchema)
 
 
 module.exports = booksModel
