@@ -59,9 +59,4 @@ deleteBooksController = (req, res) => {
     })
 }
 
-// registerController = (req, res) => {
-//     console.log(req.body)
-//     res.send("DONE")
-// }
-
 module.exports = { fetchBooksController, updateBooksController, createBooksController, deleteBooksController }
